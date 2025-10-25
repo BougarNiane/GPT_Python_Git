@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row mb-4">
+    <div class="col">
+      <h1>상품 목록</h1>
+    </div>
+    <div class="col text-end">
+      <a href="{% url 'products:add' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> 상품 등록
+      </a>
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for p in products %}
+      <div class="col">
+        <div class="card h-100">
+          {% if p.image %}
+            <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.name }}">
+          {% else %}
+            <div class="card-img-top bg-light d-flex align-items-center justify-content-center">
+              <span class="text-muted">이미지 없음</span>
+            </div>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ p.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ p.code }}</h6>
+            <p class="card-text">
+              <strong>가격:</strong> {{ p.price }}원<br>
+              <strong>재고:</strong> {{ p.stock }}개
+            </p>
+            <a href="{% url 'products:detail' p.pk %}" class="btn btn-primary">상세보기</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12">
+        <div class="alert alert-info">
+          등록된 상품이 없습니다.
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

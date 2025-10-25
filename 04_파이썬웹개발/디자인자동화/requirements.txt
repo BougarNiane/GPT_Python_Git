@@ -1,0 +1,4 @@
+faker==19.13.0
+python-dotenv==1.0.0
+requests==2.31.0
+figma-api==0.9.1
